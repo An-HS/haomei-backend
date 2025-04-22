@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from geopy.distance import geodesic
 from firebase_init import save_checkin  # 匯入儲存功能
+from push_message import push_audio_and_chart  # 語音推播
 
 verify_bp = Blueprint('verify', __name__)
 
@@ -31,6 +32,7 @@ def verify_location():
         distance = geodesic(user_coords, station_coords).meters
         if distance <= 500:  # 判斷 500 公尺內
             save_checkin(user_id, station_name)  # 儲存到 Firebase
+            push_audio_and_chart(user_id, station_name)  # 呼叫語音推播
             return jsonify({
                 "status": "success",
                 "message": f"✅ {station_name} 打卡成功！距離：{int(distance)} 公尺"
