@@ -1,5 +1,5 @@
 from linebot import LineBotApi
-from linebot.models import FlexSendMessage, AudioSendMessage
+from linebot.models import ImageSendMessage, AudioSendMessage
 import os
 
 # 初始化 LINE API
@@ -42,28 +42,11 @@ def push_audio_and_chart(user_id, station_name):
         messages.append(AudioSendMessage(original_content_url=audio_url, duration=8000))
 
     if chart_url:
-        flex_message = {
-            "type": "bubble",
-            "hero": {
-                "type": "image",
-                "url": chart_url,
-                "size": "full",
-                "aspectRatio": "16:9",
-                "aspectMode": "cover"
-            },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                    {"type": "text", 
-                     "text": f"{station_name}的探索統計", 
-                     "weight": "bold", 
-                     "size": "md", 
-                     "wrap": True}
-                ]
-            }
-        }
-        messages.append(FlexSendMessage(alt_text="探索統計圖", contents=flex_message))
+        messages.append(ImageSendMessage(
+            original_content_url=chart_url,
+            preview_image_url=chart_url  # 預覽圖也用同一張
+        ))
+        
 
     # 一次推送所有訊息
     if messages:
