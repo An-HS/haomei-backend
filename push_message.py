@@ -21,15 +21,15 @@ voice_guides = {
 
 # 各站點對應的統計圖網址（目前為測試圖）
 charts = {
-    "大潤發": "https://imgur.com/A0bZKOW",
-    "嘉義大學民雄校區": "https://imgur.com/OteSTlJ",
-    "嘉義大學蘭潭校區": "https://imgur.com/ojUDYvj",
-    "好美船屋": "https://imgur.com/A0bZKOW",
-    "好美里3D彩繪村": "https://imgur.com/OteSTlJ",
-    "好美苗圃": "https://imgur.com/ojUDYvj",
-    "1920美漾森林": "https://imgur.com/A0bZKOW",
-    "好美里防風林": "https://imgur.com/OteSTlJ",
-    "潮間帶": "https://imgur.com/ojUDYvj" ,
+    "大潤發": "https://i.imgur.com/A0bZKOW.jpg",
+    "嘉義大學民雄校區": "https://i.imgur.com/OteSTlJ.jpg",
+    "嘉義大學蘭潭校區": "https://i.imgur.com/ojUDYvj.jpg",
+    "好美船屋": "https://i.imgur.com/A0bZKOW.jpg",
+    "好美里3D彩繪村": "https://i.imgur.com/OteSTlJ.jpg",
+    "好美苗圃": "https://i.imgur.com/ojUDYvj.jpg",
+    "1920美漾森林": "https://i.imgur.com/A0bZKOW.jpg",
+    "好美里防風林": "https://i.imgur.com/OteSTlJ.jpg",
+    "潮間帶": "https://i.imgur.com/ojUDYvj.jpg" ,
 }
 
 def push_audio_and_chart(user_id, station_name):
