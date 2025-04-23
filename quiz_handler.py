@@ -1,5 +1,6 @@
-from linebot import LineBotApi, WebhookHandler
+from linebot import LineBotApi
 from linebot.models import TextSendMessage, FlexSendMessage, PostbackEvent
+from firebase_admin import db
 import os
 
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
@@ -70,14 +71,52 @@ def generate_quiz_flex(station_name, question_index, quiz):
         }
     }
 
-# 監聽 Postback (這個流程要接到 Webhook 處理 PostbackEvent)
+# 更新全站統計
+def update_quiz_stats(station_name, question_number, is_correct):
+    ref = db.reference(f"/quiz_stats/{station_name}/{question_number}")
+    stats = ref.get() or {"total_attempts": 0, "correct_attempts": 0}
+    stats["total_attempts"] += 1
+    if is_correct:
+        stats["correct_attempts"] += 1
+    ref.set(stats)
+
+# 儲存個人答題記錄
+def save_user_answer(user_id, station_name, question_index, answer, correct):
+    ref = db.reference(f"/quiz_records/{user_id}/{station_name}/question_{question_index}")
+    ref.set({
+        "answer": answer,
+        "correct": correct
+    })
+
+# 監聽 Postback
 def handle_postback(event: PostbackEvent):
     data = event.postback.data
     params = dict(param.split('=') for param in data.split('&'))
 
+    user_id = event.source.user_id
+
     if params.get("quiz_start") == "true":
         station = params.get("station")
-        start_quiz(event.source.user_id, station)
+        start_quiz(user_id, station)
+    elif "quiz_station" in params:
+        station = params["quiz_station"]
+        question_idx = int(params["question"])
+        user_answer = params["answer"]
 
-# 測試用
-# start_quiz("user_id", "好美里3D彩繪村")
+        quiz_list = quizzes[station]
+        correct_answer = quiz_list[question_idx - 1]["answer"]
+        is_correct = user_answer == correct_answer
+
+        # 更新資料庫
+        save_user_answer(user_id, station, question_idx, user_answer, is_correct)
+        update_quiz_stats(station, question_idx, is_correct)
+
+        # 如果還有下一題
+        if question_idx < len(quiz_list):
+            next_quiz = quiz_list[question_idx]
+            flex_message = generate_quiz_flex(station, question_idx + 1, next_quiz)
+            line_bot_api.push_message(user_id, FlexSendMessage(alt_text="下一題來囉！", contents=flex_message))
+        else:
+            # 全部答完，推送解答
+            answers = "\n".join([f"問題 {i+1}: 正確答案是 {q['answer']}" for i, q in enumerate(quiz_list)])
+            line_bot_api.push_message(user_id, TextSendMessage(text=f"🎉 你已完成所有題目！\n{answers}"))
