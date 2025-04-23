@@ -2,10 +2,11 @@ from flask import Flask, request, abort, render_template, send_from_directory, s
 from flask_cors import CORS
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, PostbackEvent
 import os
 from dotenv import load_dotenv
 from verify_location import verify_bp
+from quiz_handler import handle_postback
 
 
 load_dotenv()  # 讀取 .env 檔
@@ -23,6 +24,10 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 @app.route("/map_checkin")
 def map_checkin():
     return render_template("map_checkin.html")
+
+@handler.add(PostbackEvent)
+def on_postback(event):
+    handle_postback(event)
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -48,14 +53,14 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-# 收到文字訊息就原封不動回覆
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    user_msg = event.message.text
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=f"你說的是：「{user_msg}」")
-    )
+# # 收到文字訊息就原封不動回覆
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     user_msg = event.message.text
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         TextSendMessage(text=f"你說的是：「{user_msg}」")
+#     )
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Render 會提供 PORT，否則預設用 5000

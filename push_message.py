@@ -1,8 +1,7 @@
 from linebot import LineBotApi
-from linebot.models import ImageSendMessage, AudioSendMessage
+from linebot.models import ImageSendMessage, AudioSendMessage, FlexSendMessage
 import os
 
-# 初始化 LINE API
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
@@ -32,6 +31,40 @@ charts = {
     "潮間帶": "https://i.imgur.com/ojUDYvj.jpg" ,
 }
 
+quiz_start = lambda station_name:{
+    "type": "bubble",
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+        {
+            "type": "text",
+            "text": f"🌟 {station_name} ：知識問答遊戲 🌟",
+            "weight": "bold",
+            "size": "lg",
+            "wrap": True
+        },
+        {
+            "type": "text",
+            "text": "聽完語音導覽後，開啟小測驗！完成所有站點答題並達到85%以上正確率，即可獲得專屬禮券！",
+            "wrap": True,
+            "margin": "md"
+        },
+        {
+            "type": "button",
+            "style": "primary",
+            "action": {
+            "type": "postback",
+            "label": "開始答題！",
+            "data": f"quiz_start=true&station={station_name}"
+            },
+            "margin": "xl"
+        }
+        ]
+    }
+}
+
+
 def push_audio_and_chart(user_id, station_name):
     audio_url = voice_guides.get(station_name)
     chart_url = charts.get(station_name)
@@ -47,6 +80,12 @@ def push_audio_and_chart(user_id, station_name):
             preview_image_url=chart_url  # 預覽圖也用同一張
         ))
         
+    quiz_flex = quiz_start(station_name)
+    messages.append(FlexSendMessage(
+        alt_text="知識問答遊戲開始！",
+        contents=quiz_flex
+    ))
+
 
     # 一次推送所有訊息
     if messages:
