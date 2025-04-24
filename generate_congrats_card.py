@@ -26,16 +26,16 @@ def generate_card(user_name, correct_rate):
         with open(font_path, "wb") as f:
             f.write(requests.get(font_url).content)
     with open(font_path, "rb") as f:
-        font_bytes = f.read()
+        font = f.read()
 
     draw = ImageDraw.Draw(img)
-    font_large = ImageFont.truetype(font_bytes, 40)
+    font_large = ImageFont.truetype(BytesIO(font), 40)
     draw.text((42, 60), user_name, font=font_large, fill=(36, 71, 45, 1))
     
-    font_small = ImageFont.truetype(font_bytes, 20)
+    font_small = ImageFont.truetype(BytesIO(font), 20)
     draw.text((42, 152), time, font=font_small, fill=(36, 71, 45, 1))
 
-    font_rate = ImageFont.truetype(font_bytes, 80)
+    font_rate = ImageFont.truetype(BytesIO(font), 80)
     draw.text((240, 20), correct_rate, font=font_rate, fill=(36, 71, 45, 1))
     
     # 暫存圖片
