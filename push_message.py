@@ -20,15 +20,15 @@ voice_guides = {
 
 # 各站點對應的統計圖網址（目前為測試圖）
 charts = {
-    "大潤發": "https://i.imgur.com/A0bZKOW.jpg",
-    "嘉義大學民雄校區": "https://i.imgur.com/OteSTlJ.jpg",
-    "嘉義大學蘭潭校區": "https://i.imgur.com/ojUDYvj.jpg",
-    "好美船屋": "https://i.imgur.com/A0bZKOW.jpg",
-    "好美里3D彩繪村": "https://i.imgur.com/OteSTlJ.jpg",
-    "好美苗圃": "https://i.imgur.com/ojUDYvj.jpg",
-    "1920美漾森林": "https://i.imgur.com/A0bZKOW.jpg",
-    "好美里防風林": "https://i.imgur.com/OteSTlJ.jpg",
-    "潮間帶": "https://i.imgur.com/ojUDYvj.jpg" ,
+    "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/1920_meiyan.jpg",
+    "嘉義大學民雄校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/3D_painting.jpg",
+    "嘉義大學蘭潭校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/RT_MART.jpg",
+    "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/garden.jpg",
+    "好美里3D彩繪村": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/chiayi_langtang.jpg",
+    "好美苗圃": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/chiayi_minxiog.jpg",
+    "1920美漾森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/1920_meiyan.jpg",
+    "好美里防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/chiayi_minxiog.jpg",
+    "潮間帶": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/images/RT_MART.jpg" ,
 }
 
 quiz_start = lambda station_name:{

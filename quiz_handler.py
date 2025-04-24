@@ -1,7 +1,8 @@
 from linebot import LineBotApi
-from linebot.models import TextSendMessage, FlexSendMessage, PostbackEvent
+from linebot.models import TextSendMessage, FlexSendMessage, PostbackEvent, ImageSendMessage
 from firebase_admin import db
 import os
+from generate_congrats_card import generate_card
 
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
@@ -87,6 +88,20 @@ def save_user_answer(user_id, station_name, question_index, answer, correct):
         "answer": answer,
         "correct": correct
     })
+    
+# 計算答題正確率
+def calculate_correct_rate(user_id, station_name):
+    ref = db.reference(f"/quiz_records/{user_id}/{station_name}")
+    records = ref.get()
+
+    if not records:
+        return 0
+
+    total = len(records)
+    correct = sum(1 for q in records.values() if q['correct'])
+
+    return int((correct / total) * 100)  # 回傳百分比
+
 
 # 監聽 Postback
 def handle_postback(event: PostbackEvent):
@@ -120,3 +135,15 @@ def handle_postback(event: PostbackEvent):
             # 全部答完，推送解答
             answers = "\n".join([f"問題 {i+1}: 正確答案是 {q['answer']}" for i, q in enumerate(quiz_list)])
             line_bot_api.push_message(user_id, TextSendMessage(text=f"🎉 你已完成所有題目！\n{answers}"))
+            
+            # 取得使用者名稱
+            user_name = line_bot_api.get_profile(user_id).display_name
+            correct_rate = calculate_correct_rate(user_id, station)
+            card_url = generate_card(user_name, f"{correct_rate}%")
+            
+            # 發送小卡給使用者
+            line_bot_api.push_message(user_id, ImageSendMessage(
+                original_content_url=card_url,
+                preview_image_url=card_url
+            ))
+        

@@ -53,14 +53,6 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-# # 收到文字訊息就原封不動回覆
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-#     user_msg = event.message.text
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         TextSendMessage(text=f"你說的是：「{user_msg}」")
-#     )
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Render 會提供 PORT，否則預設用 5000
