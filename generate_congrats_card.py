@@ -26,7 +26,7 @@ def generate_card(user_name, correct_rate):
         with open(font_path, "wb") as f:
             f.write(requests.get(font_url).content)
     with open(font_path, "rb") as f:
-        font_bytes = BytesIO(f.read())
+        font_bytes = f.read()
 
     draw = ImageDraw.Draw(img)
     font_large = ImageFont.truetype(font_bytes, 40)
