@@ -29,7 +29,7 @@ def generate_card(user_name, correct_rate, station_name):
         "潮間帶": "wetland_minxiong.png"
     }.get(station_name, "wetland.png")  # 預設圖
     
-    bg_path = os.path.join(static_dir, bg_filename")
+    bg_path = os.path.join(static_dir, bg_filename)
     img = Image.open(bg_path)
     time = datetime.now().strftime("%Y-%m-%d")
 
