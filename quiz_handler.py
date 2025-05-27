@@ -168,7 +168,7 @@ def handle_postback(event: PostbackEvent):
             # 取得使用者名稱
             user_name = line_bot_api.get_profile(user_id).display_name
             correct_rate = calculate_correct_rate(user_id, station)
-            card_url = generate_card(user_name, f"{correct_rate}%")
+            card_url = generate_card(user_name, f"{correct_rate}%", station)
             
             # 發送小卡給使用者
             line_bot_api.push_message(user_id, ImageSendMessage(
