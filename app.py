@@ -6,7 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, PostbackE
 import os
 from dotenv import load_dotenv
 from verify_location import verify_bp
-# from quiz_handler import handle_postback as quiz_handle_postback
+from quiz_handler import handle_postback as quiz_handle_postback
 # from postback_handler import handle_postback as general_handle_postback
 
 
