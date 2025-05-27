@@ -6,7 +6,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, PostbackE
 import os
 from dotenv import load_dotenv
 from verify_location import verify_bp
-from quiz_handler import handle_postback
+# from quiz_handler import handle_postback as quiz_handle_postback
+# from postback_handler import handle_postback as general_handle_postback
 
 
 load_dotenv()  # 讀取 .env 檔
@@ -51,7 +52,14 @@ def callback():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
+# # 收到 Postback
+# @handler.add(PostbackEvent)
+# def handle_postback(event):
+#     data = event.postback.data
+#     if data.startswith("quiz_start") or "quiz_station" in data:
+#         quiz_handle_postback(event)
+#     else:
+#         general_handle_postback(event)
 
 
 if __name__ == "__main__":

@@ -73,3 +73,7 @@ __pycache__/
 
 #firebase 金鑰
 firebase_key.json
+
+#未完成檔案先不push
+generate_coupon.py
+postback_handler.py

@@ -22,13 +22,13 @@ voice_guides = {
 charts = {
     "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/1920_meiyan.jpg",
     "嘉義大學民雄校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/3D_painting.jpg",
-    "嘉義大學蘭潭校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.jpg",
-    "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/garden.jpg",
-    "好美里3D彩繪村": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_langtang.jpg",
-    "好美苗圃": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpg",
+    "嘉義大學蘭潭校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.jpeg",
+    "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/garden.jpeg",
+    "好美里3D彩繪村": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_langtang.jpeg",
+    "好美苗圃": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpeg",
     "1920美漾森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/1920_meiyan.jpg",
-    "好美里防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpg",
-    "潮間帶": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.jpg" ,
+    "好美里防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpeg",
+    "潮間帶": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.jpeg" ,
 }
 
 quiz_start = lambda station_name:{
