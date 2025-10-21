@@ -7,7 +7,7 @@ line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
 # 各站點的語音導覽文字（之後可替換成 TTS）
 voice_guides = {
-    "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/忘憂森林.mp3",
+    "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/forest.mp3",
     "嘉義大學民雄校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/chiayi_minxiog.mp3",
     "嘉義大學蘭潭校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/chiayi_langtang.mp3",
     "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/boat_house.mp3",
