@@ -76,4 +76,6 @@ firebase_key.json
 
 #未完成檔案先不push
 generate_coupon.py
-postback_handler.py
+
+#虛擬環境
+venv

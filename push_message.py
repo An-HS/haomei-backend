@@ -7,7 +7,7 @@ line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
 # 各站點的語音導覽文字（之後可替換成 TTS）
 voice_guides = {
-    "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/RT_MART.mp3",
+    "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/忘憂森林.mp3",
     "嘉義大學民雄校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/chiayi_minxiog.mp3",
     "嘉義大學蘭潭校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/chiayi_langtang.mp3",
     "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/boat_house.mp3",
@@ -20,15 +20,15 @@ voice_guides = {
 
 # 各站點對應的統計圖網址（目前為測試圖）
 charts = {
-    "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/1920_meiyan.jpg",
+    "大潤發": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.png",
     "嘉義大學民雄校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/3D_painting.jpg",
-    "嘉義大學蘭潭校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.jpeg",
+    "嘉義大學蘭潭校區": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.png",
     "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/garden.jpeg",
     "好美里3D彩繪村": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_langtang.jpeg",
     "好美苗圃": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpeg",
     "1920美漾森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/1920_meiyan.jpg",
     "好美里防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpeg",
-    "潮間帶": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.jpeg" ,
+    "潮間帶": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.png" ,
 }
 
 quiz_start = lambda station_name:{
