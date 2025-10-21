@@ -18,7 +18,7 @@ def generate_card(user_name, correct_rate, station_name):
     static_dir = os.path.join(os.path.dirname(__file__), "static")
     # 根據站點名稱選擇不同背景圖
     bg_filename = {
-        "大潤發": "wetland.png",
+        "忘憂森林": "wetland.png",
         "嘉義大學蘭潭校區": "wetland.png",
         "嘉義大學民雄校區": "wetland.png",
         "好美船屋": "wetland_minxiong.png",

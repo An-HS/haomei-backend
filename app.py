@@ -58,8 +58,8 @@ def handle_postback(event):
     data = event.postback.data
     if data.startswith("quiz_start") or "quiz_station" in data:
         quiz_handle_postback(event)
-    else:
-        general_handle_postback(event)
+    # else:
+    #     general_handle_postback(event)
 
 
 if __name__ == "__main__":
