@@ -18,16 +18,16 @@ def generate_card(user_name, correct_rate, station_name):
     static_dir = os.path.join(os.path.dirname(__file__), "static")
     # 根據站點名稱選擇不同背景圖
     bg_filename = {
-        "忘憂森林": "wetland.png",
-        "嘉義大學蘭潭校區": "wetland.png",
-        "嘉義大學民雄校區": "wetland.png",
-        "好美船屋": "wetland_minxiong.png",
-        "好美里3D彩繪村": "wetland_minxiong.png",
-        "好美苗圃": "wetland_minxiong.png",
-        "1920美漾森林": "wetland_minxiong.png",
-        "好美里防風林": "wetland_minxiong.png",
-        "潮間帶": "wetland_minxiong.png"
-    }.get(station_name, "wetland.png")  # 預設圖
+        "忘憂森林": "forest.png",
+        "開溝築堤": "dike.png",
+        "防風林": "windbreak.png",
+        # "好美船屋": "forest.png",
+        # "好美里3D彩繪村": "forest.png",
+        # "好美苗圃": "dike.png",
+        # "1920美漾森林": "dike.png",
+        # "好美里防風林": "forest.png",
+        # "潮間帶": "forest.png"
+    }.get(station_name, "forest.png")  # 預設圖
     
     bg_path = os.path.join(static_dir, bg_filename)
     img = Image.open(bg_path)
