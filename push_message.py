@@ -71,7 +71,7 @@ quiz_start = lambda station_name:{
 }
 
 
-def push_audio_and_chart(user_id, station_name, duration):
+def push_audio_and_chart(user_id, station_name):
     audio_url = voice_guides.get(station_name)
     chart_url = charts.get(station_name)
     duration = audio_durations.get(station_name)
