@@ -31,7 +31,7 @@ def verify_location():
 
     for station_name, station_coords in stations.items():
         distance = geodesic(user_coords, station_coords).meters
-        if distance <= 500:  # 判斷 500 公尺內
+        if distance <= 10:  # 判斷 10 公尺內
             save_checkin(user_id, station_name)  # 儲存到 Firebase
             push_audio_and_chart(user_id, station_name)  # 呼叫語音推播
             return jsonify({
