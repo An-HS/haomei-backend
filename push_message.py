@@ -20,9 +20,9 @@ voice_guides = {
 
 # 各站點對應的統計圖網址（目前為測試圖）
 charts = {
-    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.png",
-    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/3D_painting.jpg",
-    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.png",
+    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/forest.png",
+    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/dike.jpg",
+    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/windbreak.png",
     # "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/garden.jpeg",
     # "好美里3D彩繪村": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_langtang.jpeg",
     # "好美苗圃": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpeg",
@@ -32,9 +32,9 @@ charts = {
 }
 
 audio_durations = {
-    "忘憂森林": 44, #秒
-    "開溝築堤": 50,
-    "防風林": 59,
+    "忘憂森林": 34, #秒
+    "開溝築堤": 57,
+    "防風林": 62,
 }
 
 quiz_start = lambda station_name:{
