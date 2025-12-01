@@ -21,7 +21,7 @@ def push_station_selection(user_id, main_station="1920美漾森林", sub_station
             "action": {
                 "type": "postback",
                 "label": name,
-                "data": f"action=choose_sub_station&main={main_station}&sub={name}"
+                "data": f"action=choose_sub_station&station={name}"
             },
             "margin": "md"
         })
@@ -44,7 +44,7 @@ def push_station_selection(user_id, main_station="1920美漾森林", sub_station
                     "layout": "vertical",
                     "margin": "lg",
                     "spacing": "sm",
-                    "contents": buttons
+                    "contents": buttons,
                 }
             ]
         }

@@ -140,8 +140,7 @@ def handle_postback(event: PostbackEvent):
     user_id = event.source.user_id
     
     if params.get("action") == "choose_sub_station":
-        main_station = params.get("main")
-        sub_station = params.get("sub")
+        sub_station = params.get("station")
         
         save_checkin(user_id, sub_station)
         push_audio_and_chart(user_id, sub_station)

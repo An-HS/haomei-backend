@@ -36,7 +36,7 @@ def verify_location():
             if station_name in sub_stations: #是否有子站點
                 save_checkin(user_id, f"{station_name}_區域")
                 push_station_selection(user_id, main_station=station_name, sub_stations=sub_stations[station_name])
-
+                
                 return jsonify({
                     "status": "success",
                     "message": f"✅ 已進入 {station_name} 附近（約 {int(distance)} 公尺），請在 LINE 選擇站點。"
