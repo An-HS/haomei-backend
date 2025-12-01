@@ -5,17 +5,64 @@ import os
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
+forest_sub_station = ["忘憂森林", "開溝築堤", "防風林"]
+
+def push_station_selection(user_id, main_station="1920美漾森林", sub_stations=None):
+
+    if sub_stations is None:
+        sub_stations = forest_sub_station
+
+    buttons = []
+    for name in sub_stations:
+        buttons.append({
+            "type": "button",
+            "style": "primary",
+            "height": "sm",
+            "action": {
+                "type": "postback",
+                "label": name,
+                "data": f"action=choose_sub_station&main={main_station}&sub={name}"
+            },
+            "margin": "md"
+        })
+
+    bubble = {
+        "type": "bubble",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "text",
+                    "text": f"你現在在「{main_station}」附近，請選擇實際站點：",
+                    "weight": "bold",
+                    "size": "md",
+                    "wrap": True
+                },
+                {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "lg",
+                    "spacing": "sm",
+                    "contents": buttons
+                }
+            ]
+        }
+    }
+
+    line_bot_api.push_message(
+        user_id,
+        FlexSendMessage(
+            alt_text="請選擇站點",
+            contents=bubble
+        )
+    )
+
 # 各站點的語音導覽文字（之後可替換成 TTS）
 voice_guides = {
-    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/forest.mp3", #原大潤發
-    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/dike.mp3", #原民雄
-    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/windbreak.mp3", #原蘭潭
-    # "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/dike.mp3",
-    # "好美里3D彩繪村": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/dike.mp3",
-    # "好美苗圃": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/forest.mp3",
-    # "1920美漾森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/windbreak.mp3",
-    # "好美里防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/windbreak.mp3",
-    # "潮間帶": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/forest.mp3" ,
+    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/forest.mp3",
+    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/dike.mp3",
+    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/windbreak.mp3",
 }
 
 # 各站點對應的統計圖網址（目前為測試圖）
@@ -23,12 +70,6 @@ charts = {
     "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/forest.png",
     "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/dike.jpg",
     "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/windbreak.png",
-    # "好美船屋": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/garden.jpeg",
-    # "好美里3D彩繪村": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_langtang.jpeg",
-    # "好美苗圃": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpeg",
-    # "1920美漾森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/1920_meiyan.jpg",
-    # "好美里防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/chiayi_minxiog.jpeg",
-    # "潮間帶": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/RT_MART.png" ,
 }
 
 audio_durations = {

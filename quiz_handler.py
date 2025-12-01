@@ -3,6 +3,8 @@ from linebot.models import TextSendMessage, FlexSendMessage, PostbackEvent, Imag
 from firebase_admin import db
 import os
 from generate_congrats_card import generate_card
+from firebase_init import save_checkin 
+from push_message import push_audio_and_chart
 
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
@@ -136,6 +138,15 @@ def handle_postback(event: PostbackEvent):
     params = dict(param.split('=') for param in data.split('&'))
 
     user_id = event.source.user_id
+    
+    if params.get("action") == "choose_sub_station":
+        main_station = params.get("main")
+        sub_station = params.get("sub")
+        
+        save_checkin(user_id, sub_station)
+        push_audio_and_chart(user_id, sub_station)
+
+        return
 
     if params.get("quiz_start") == "true":
         station = params.get("station")
