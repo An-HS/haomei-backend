@@ -2,6 +2,7 @@ from linebot import LineBotApi
 from linebot.models import TextSendMessage, FlexSendMessage, PostbackEvent, ImageSendMessage
 from firebase_admin import db
 import os
+from urllib.parse import parse_qsl 
 from generate_congrats_card import generate_card
 from firebase_init import save_checkin 
 from push_message import push_audio_and_chart
@@ -135,7 +136,8 @@ def calculate_correct_rate(user_id, station_name):
 # 監聽 Postback
 def handle_postback(event: PostbackEvent):
     data = event.postback.data
-    params = dict(param.split('=') for param in data.split('&'))
+    params = dict(parse_qsl(data))
+    # params = dict(param.split('=') for param in data.split('&'))
 
     user_id = event.source.user_id
     
