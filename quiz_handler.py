@@ -248,6 +248,7 @@ def handle_postback(event: PostbackEvent):
                 return
 
             all_subs = sub_stations.get(main_station, [])
+            done_map = get_done_map(user_id)
             remaining = [s for s in all_subs if not done_map.get(s)]
 
             if remaining:
