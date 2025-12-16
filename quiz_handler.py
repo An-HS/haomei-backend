@@ -139,25 +139,30 @@ def handle_postback(event: PostbackEvent):
 
     user_id = event.source.user_id
     
+    line_bot_api.push_message(
+        user_id,
+        TextSendMessage(text=f"[DEBUG] 收到 postback: {data}")
+    )
+    
     if params.get("action") == "choose_sub_station":
         sub_station = params.get("station")
 
-        if not sub_station:
-            # 沒拿到站名就回個 debug 訊息（幫你測）
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=f"⚠️ 無法辨識站點，收到的 data 為：{data}")
-            )
-            return
+        # if not sub_station:
+        #     # 沒拿到站名就回個 debug 訊息（幫你測）
+        #     line_bot_api.reply_message(
+        #         event.reply_token,
+        #         TextSendMessage(text=f"⚠️ 無法辨識站點，收到的 data 為：{data}")
+        #     )
+        #     return
         
         save_checkin(user_id, sub_station)
         push_audio_and_chart(user_id, sub_station)
 
-        # 回一句話確認這個分支有被觸發
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=f"已為你開始「{sub_station}」的導覽與小測驗，請留意後續語音與圖片。")
-        )
+        # # 回一句話確認這個分支有被觸發
+        # line_bot_api.reply_message(
+        #     event.reply_token,
+        #     TextSendMessage(text=f"已為你開始「{sub_station}」的導覽與小測驗，請留意後續語音與圖片。")
+        # )
 
         return
 

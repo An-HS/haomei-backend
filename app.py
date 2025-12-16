@@ -55,7 +55,11 @@ def favicon():
 @handler.add(PostbackEvent)
 def handle_postback(event):
     data = event.postback.data
-    if data.startswith("quiz_start") or "quiz_station" in data:
+    if (
+        data.startswith("quiz_start")
+        or "quiz_station" in data
+        or data.startswith("action=choose_sub_station")
+    ):
         quiz_handle_postback(event)
     # else:
     #     general_handle_postback(event)
