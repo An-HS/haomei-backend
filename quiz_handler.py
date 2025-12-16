@@ -2,7 +2,6 @@ from linebot import LineBotApi
 from linebot.models import TextSendMessage, FlexSendMessage, PostbackEvent, ImageSendMessage
 from firebase_admin import db
 import os
-from urllib.parse import parse_qsl 
 from generate_congrats_card import generate_card
 from firebase_init import save_checkin 
 from push_message import push_audio_and_chart
@@ -136,16 +135,29 @@ def calculate_correct_rate(user_id, station_name):
 # 監聽 Postback
 def handle_postback(event: PostbackEvent):
     data = event.postback.data
-    params = dict(parse_qsl(data))
-    # params = dict(param.split('=') for param in data.split('&'))
+    params = dict(param.split('=') for param in data.split('&'))
 
     user_id = event.source.user_id
     
     if params.get("action") == "choose_sub_station":
         sub_station = params.get("station")
+
+        if not sub_station:
+            # 沒拿到站名就回個 debug 訊息（幫你測）
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=f"⚠️ 無法辨識站點，收到的 data 為：{data}")
+            )
+            return
         
         save_checkin(user_id, sub_station)
         push_audio_and_chart(user_id, sub_station)
+
+        # 回一句話確認這個分支有被觸發
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=f"已為你開始「{sub_station}」的導覽與小測驗，請留意後續語音與圖片。")
+        )
 
         return
 

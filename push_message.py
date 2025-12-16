@@ -5,12 +5,12 @@ import os
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
-forest_sub_station = ["忘憂森林", "開溝築堤", "防風林"]
+# forest_sub_station = ["忘憂森林", "開溝築堤", "防風林"]
 
-def push_station_selection(user_id, main_station="1920美漾森林", sub_stations=None):
+def push_station_selection(user_id, main_station, sub_stations):
 
-    if sub_stations is None:
-        sub_stations = forest_sub_station
+    # if sub_stations is None:
+    #     sub_stations = forest_sub_station
 
     buttons = []
     for name in sub_stations:
