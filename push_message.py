@@ -1,16 +1,14 @@
 from linebot import LineBotApi
 from linebot.models import ImageSendMessage, AudioSendMessage, FlexSendMessage
 import os
+import uuid
 
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
-# forest_sub_station = ["忘憂森林", "開溝築堤", "防風林"]
-
 def push_station_selection(user_id, main_station, sub_stations):
 
-    # if sub_stations is None:
-    #     sub_stations = forest_sub_station
+    sid = uuid.uuid4().hex #鎖住每次推播的session
 
     buttons = []
     for name in sub_stations:
@@ -21,7 +19,7 @@ def push_station_selection(user_id, main_station, sub_stations):
             "action": {
                 "type": "postback",
                 "label": name,
-                "data": f"action=choose_sub_station&station={name}"
+                "data": f"action=choose_sub_station&station={name}&sid={sid}"
             },
             "margin": "md"
         })

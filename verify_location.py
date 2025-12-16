@@ -41,13 +41,13 @@ def verify_location():
                     "status": "success",
                     "message": f"✅ 已進入 {station_name} 附近（約 {int(distance)} 公尺），請在 LINE 選擇站點。"
                 })
-                
-            # save_checkin(user_id, station_name)  # 儲存到 Firebase
-            # push_audio_and_chart(user_id, station_name)
-            # return jsonify({
-            #     "status": "success",
-            #     "message": f"✅ {station_name} 打卡成功！距離：{int(distance)} 公尺"
-            # })
+            else:    
+                save_checkin(user_id, station_name)  # 儲存到 Firebase
+                push_audio_and_chart(user_id, station_name)
+                return jsonify({
+                    "status": "success",
+                    "message": f"✅ {station_name} 打卡成功！距離：{int(distance)} 公尺"
+                })
 
     return jsonify({
         "status": "fail",

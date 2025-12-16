@@ -4,10 +4,16 @@ from firebase_admin import db
 import os
 from generate_congrats_card import generate_card
 from firebase_init import save_checkin 
-from push_message import push_audio_and_chart
+from push_message import push_audio_and_chart, push_station_selection
+from firebase_init import try_consume_sid, get_done_map
+from collections import defaultdict
 
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+
+sub_stations = {
+    "1920美漾森林": ["忘憂森林", "開溝築堤", "防風林"]
+}
 
 # 題庫設計
 quizzes = {
@@ -132,37 +138,55 @@ def calculate_correct_rate(user_id, station_name):
     return int((correct / total) * 100)  # 回傳百分比
 
 
+# 建立子站反查表
+def build_sub_to_main_map(sub_stations: dict) -> dict:
+    """
+    回傳：
+    - 若每個子站只屬於一個主站：{"忘憂森林": "1920美漾森林", ...}
+    - 若可能一個子站屬於多個主站：{"子站": ["主站A","主站B"], ...}
+    """
+    m = defaultdict(list)
+    for main, subs in sub_stations.items():
+        for s in subs:
+            m[s].append(main)
+
+    # 若確定不會重複，這裡可以壓成單值
+    out = {}
+    for s, mains in m.items():
+        out[s] = mains[0] if len(mains) == 1 else mains
+    return out
+
+SUB_TO_MAIN = build_sub_to_main_map(sub_stations)
+
+
 # 監聽 Postback
 def handle_postback(event: PostbackEvent):
     data = event.postback.data
     params = dict(param.split('=') for param in data.split('&'))
-
     user_id = event.source.user_id
+
+    done_map = get_done_map(user_id)
+    if done_map.get(sub_station):
+        line_bot_api.push_message(
+            user_id,
+            TextSendMessage(text=f"⚠️「{sub_station}」已完成，請選擇其他站點。")
+        )
+        return
     
-    line_bot_api.push_message(
-        user_id,
-        TextSendMessage(text=f"[DEBUG] 收到 postback: {data}")
-    )
+    # line_bot_api.push_message(
+    #     user_id,
+    #     TextSendMessage(text=f"[DEBUG] 收到 postback: {data}")
+    # )
     
     if params.get("action") == "choose_sub_station":
         sub_station = params.get("station")
+        sid = params.get("sid")
 
-        # if not sub_station:
-        #     # 沒拿到站名就回個 debug 訊息（幫你測）
-        #     line_bot_api.reply_message(
-        #         event.reply_token,
-        #         TextSendMessage(text=f"⚠️ 無法辨識站點，收到的 data 為：{data}")
-        #     )
-        #     return
+        if not sid or not try_consume_sid(user_id, sid):
+            return
         
         save_checkin(user_id, sub_station)
         push_audio_and_chart(user_id, sub_station)
-
-        # # 回一句話確認這個分支有被觸發
-        # line_bot_api.reply_message(
-        #     event.reply_token,
-        #     TextSendMessage(text=f"已為你開始「{sub_station}」的導覽與小測驗，請留意後續語音與圖片。")
-        # )
 
         return
 
@@ -202,4 +226,38 @@ def handle_postback(event: PostbackEvent):
                 original_content_url=card_url,
                 preview_image_url=card_url
             ))
+
+            sub_station = station
+            main_station = SUB_TO_MAIN.get(sub_station)
+
+            # 防呆：找不到對應主站（代表 sub_stations 沒包含到這個子站）
+            if not main_station:
+                line_bot_api.push_message(
+                    user_id,
+                    TextSendMessage(text=f"⚠️ 找不到「{sub_station}」對應的主站，請檢查 sub_stations 設定。")
+                )
+                return
+
+            # 如果有機會「一個子站屬於多個主站」，main_station 會是 list
+            if isinstance(main_station, list):
+                line_bot_api.push_message(
+                    user_id,
+                    TextSendMessage(text=f"⚠️「{sub_station}」同時屬於多個主站：{main_station}，目前無法自動判斷要推哪一組。")
+                )
+                return
+
+            all_subs = sub_stations.get(main_station, [])
+            remaining = [s for s in all_subs if not done_map.get(s)]
+
+            if remaining:
+                push_station_selection(
+                    user_id,
+                    main_station=main_station,
+                    sub_stations=remaining
+                )
+            else:
+                line_bot_api.push_message(
+                    user_id,
+                    TextSendMessage(text=f"🎉 你已完成「{main_station}」所有子站點！導覽完成～")
+                )
         
