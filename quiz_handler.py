@@ -164,14 +164,6 @@ def handle_postback(event: PostbackEvent):
     data = event.postback.data
     params = dict(param.split('=') for param in data.split('&'))
     user_id = event.source.user_id
-
-    done_map = get_done_map(user_id)
-    if done_map.get(sub_station):
-        line_bot_api.push_message(
-            user_id,
-            TextSendMessage(text=f"⚠️「{sub_station}」已完成，請選擇其他站點。")
-        )
-        return
     
     # line_bot_api.push_message(
     #     user_id,
@@ -181,6 +173,14 @@ def handle_postback(event: PostbackEvent):
     if params.get("action") == "choose_sub_station":
         sub_station = params.get("station")
         sid = params.get("sid")
+
+        done_map = get_done_map(user_id)
+        if done_map.get(sub_station):
+            line_bot_api.push_message(
+                user_id,
+                TextSendMessage(text=f"⚠️「{sub_station}」已完成，請選擇其他站點。")
+            )
+            return
 
         if not sid or not try_consume_sid(user_id, sid):
             return
