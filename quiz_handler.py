@@ -185,7 +185,6 @@ def handle_postback(event: PostbackEvent):
         if not sid or not try_consume_sid(user_id, sid):
             return
         
-        save_checkin(user_id, sub_station)
         push_audio_and_chart(user_id, sub_station)
 
         return
@@ -216,6 +215,7 @@ def handle_postback(event: PostbackEvent):
             answers = "\n".join([f"問題 {i+1}: 正確答案是 {q['answer']}" for i, q in enumerate(quiz_list)])
             line_bot_api.push_message(user_id, TextSendMessage(text=f"🎉 你已完成所有題目！\n{answers}"))
             
+            
             # 取得使用者名稱
             user_name = line_bot_api.get_profile(user_id).display_name
             correct_rate = calculate_correct_rate(user_id, station)
@@ -228,6 +228,7 @@ def handle_postback(event: PostbackEvent):
             ))
 
             sub_station = station
+            save_checkin(user_id, sub_station)
             main_station = SUB_TO_MAIN.get(sub_station)
 
             # 防呆：找不到對應主站（代表 sub_stations 沒包含到這個子站）
