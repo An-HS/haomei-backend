@@ -291,7 +291,7 @@ def handle_postback(event: PostbackEvent):
                 )
             else:
                 overall_rate = calculate_overall_correct_rate(user_id)
-                card_url - generate_card(user_name, f"{overall_rate}%", main_station)
+                card_url = generate_card(user_name, f"{overall_rate}%", main_station)
                 line_bot_api.push_message(
                     user_id,
                     TextSendMessage(text=f"🎉 你已完成「{main_station}」所有子站點！導覽完成～ 請拿此圖片兌換獎項！"),
