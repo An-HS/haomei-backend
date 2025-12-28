@@ -21,12 +21,7 @@ def generate_card(user_name, correct_rate, station_name):
         "忘憂森林": "forest.png",
         "開溝築堤": "dike.png",
         "防風林": "windbreak.png",
-        # "好美船屋": "forest.png",
-        # "好美里3D彩繪村": "forest.png",
-        # "好美苗圃": "dike.png",
-        # "1920美漾森林": "dike.png",
-        # "好美里防風林": "forest.png",
-        # "潮間帶": "forest.png"
+        "1920美漾森林": "final_congratuation.png"
     }.get(station_name, "forest.png")  # 預設圖
     
     bg_path = os.path.join(static_dir, bg_filename)
