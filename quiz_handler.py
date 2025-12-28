@@ -137,6 +137,7 @@ def calculate_correct_rate(user_id, station_name):
 
     return int((correct / total) * 100)  # 回傳百分比
 
+#計算全部站點答題正確率
 def calculate_overall_correct_rate(user_id):
     ref = db.reference(f"/quiz_records/{user_id}")
     all_records = ref.get()
@@ -162,11 +163,7 @@ def calculate_overall_correct_rate(user_id):
 
     correct_rate = int((correct_questions / total_questions) * 100) if total_questions > 0 else 0
 
-    return {
-        "total_questions": total_questions,
-        "correct_questions": correct_questions,
-        "correct_rate": correct_rate
-    }
+    return correct_rate
 
 
 

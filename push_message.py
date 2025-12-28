@@ -56,14 +56,14 @@ def push_station_selection(user_id, main_station, sub_stations):
         )
     )
 
-# 各站點的語音導覽文字（之後可替換成 TTS）
+# 各站點的語音導覽文字
 voice_guides = {
     "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/forest.mp3",
     "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/dike.mp3",
     "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/windbreak.mp3",
 }
 
-# 各站點對應的統計圖網址（目前為測試圖）
+# 各站點對應的統計圖網址
 charts = {
     "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/forest.png",
     "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/dike.jpg",
