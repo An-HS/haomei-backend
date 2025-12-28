@@ -56,11 +56,11 @@ def push_station_selection(user_id, main_station, sub_stations):
         )
     )
 
-# 各站點的語音導覽文字
+# 各站點的語音導覽文字，@後接github的commit hash，避免CDN中cache還是舊版
 voice_guides = {
-    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/forest.mp3",
-    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/dike.mp3",
-    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/windbreak.mp3",
+    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@8942bb8/audio/forest.mp3",
+    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@8942bb8/audio/dike.mp3",
+    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@8942bb8/audio/windbreak.mp3",
 }
 
 # 各站點對應的統計圖網址，@後接github的commit hash，避免CDN中cache還是舊版
