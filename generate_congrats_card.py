@@ -5,6 +5,7 @@ import cloudinary
 import cloudinary.uploader
 import os, uuid
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 # 初始化 Cloudinary（Render 上要設在環境變數）
 cloudinary.config(
@@ -26,7 +27,7 @@ def generate_card(user_name, correct_rate, station_name):
     
     bg_path = os.path.join(static_dir, bg_filename)
     img = Image.open(bg_path)
-    time = datetime.now().strftime("%Y-%m-%d")
+    time = datetime.now(ZoneInfo("Asia/Taipei")).strftime("%Y-%m-%d")
 
     font_url = "https://github.com/notofonts/noto-cjk/blob/main/Sans/Mono/NotoSansMonoCJKjp-Bold.otf?raw=true"
     font_path = os.path.join(static_dir, "NotoSansMonoCJKjp-Bold.otf")
