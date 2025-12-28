@@ -63,11 +63,11 @@ voice_guides = {
     "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets/audio/windbreak.mp3",
 }
 
-# 各站點對應的統計圖網址
+# 各站點對應的統計圖網址，@後接github的commit hash，避免CDN中cache還是舊版
 charts = {
-    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/forest.png",
-    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/dike.png",
-    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/windbreak.png",
+    "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@072416d/station_images/forest.png",
+    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@072416d/station_images/dike.png",
+    "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@072416d/station_images/windbreak.png",
 }
 
 audio_durations = {
