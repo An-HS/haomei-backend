@@ -66,7 +66,7 @@ voice_guides = {
 # 各站點對應的統計圖網址
 charts = {
     "忘憂森林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/forest.png",
-    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/dike.jpg",
+    "開溝築堤": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/dike.png",
     "防風林": "https://cdn.jsdelivr.net/gh/An-HS/haomei-assets@main/station_images/windbreak.png",
 }
 
