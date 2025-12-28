@@ -291,8 +291,10 @@ def handle_postback(event: PostbackEvent):
                 card_url = generate_card(user_name, f"{overall_rate}%", main_station)
                 line_bot_api.push_message(
                     user_id,
-                    TextSendMessage(text=f"🎉 你已完成「{main_station}」所有子站點！導覽完成～ 請拿此圖片兌換獎項！"),
-                    ImageSendMessage(original_content_url=card_url, preview_image_url=card_url)
+                    [
+                        TextSendMessage(text=f"🎉 你已完成「{main_station}」所有子站點！導覽完成～ 若正確率達85%，請拿此圖片兌換獎項！"),
+                        ImageSendMessage(original_content_url=card_url, preview_image_url=card_url)
+                    ]
                 )
 
         
