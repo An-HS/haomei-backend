@@ -137,6 +137,38 @@ def calculate_correct_rate(user_id, station_name):
 
     return int((correct / total) * 100)  # 回傳百分比
 
+def calculate_overall_correct_rate(user_id):
+    ref = db.reference(f"/quiz_records/{user_id}")
+    all_records = ref.get()
+
+    if not all_records:
+        return {
+            "total_questions": 0,
+            "correct_questions": 0,
+            "correct_rate": 0
+        }
+
+    total_questions = 0
+    correct_questions = 0
+
+    for station, questions in all_records.items():
+        if not isinstance(questions, dict):
+            continue
+
+        for q in questions.values():
+            total_questions += 1
+            if q.get("correct"):
+                correct_questions += 1
+
+    correct_rate = int((correct_questions / total_questions) * 100) if total_questions > 0 else 0
+
+    return {
+        "total_questions": total_questions,
+        "correct_questions": correct_questions,
+        "correct_rate": correct_rate
+    }
+
+
 
 # 建立子站反查表
 def build_sub_to_main_map(sub_stations: dict) -> dict:
@@ -258,8 +290,12 @@ def handle_postback(event: PostbackEvent):
                     sub_stations=remaining
                 )
             else:
+                overall_rate = calculate_overall_correct_rate(user_id)
+                card_url - generate_card(user_name, f"{overall_rate}%", main_station)
                 line_bot_api.push_message(
                     user_id,
-                    TextSendMessage(text=f"🎉 你已完成「{main_station}」所有子站點！導覽完成～")
+                    TextSendMessage(text=f"🎉 你已完成「{main_station}」所有子站點！導覽完成～ 請拿此圖片兌換獎項！"),
+                    ImageSendMessage(original_content_url=card_url, preview_image_url=card_url)
                 )
+
         
